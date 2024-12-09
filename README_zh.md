@@ -1,18 +1,19 @@
-<div style="text-align: center;">
+<div align= "center">
   <img src="https://ybkjzj.com:5555/d/webImage/20241209130652.png" alt="demo" style="width: 80%; height: auto;">
 </div>  
 
 # 赛博手绘信
 
-<div style="text-align: right;">
+<div align="right">
   <a title="en" href="README.md"><img src="https://img.shields.io/badge/-English-545759?style=for-the-badge" alt="english"></a>
-  <a title="zh" href="README_zh.md"><img src="https://img.shields.io/badge/-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-A31F34?style=for-the-badge" alt="简体中文">
+  <a title="zh" href="README_zh.md"><img src="https://img.shields.io/badge/-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-A31F34?style=for-the-badge" alt="简体中文"></a>
 </div>
 
 > 无论你做程序员有多牛，有多精通各种代码，能解决各种问题，最后还是会想着去用代码去表白.  
 > ————某位不知名的老前辈  
 
 该项目源自[@王子周棋洛](https://blog.csdn.net/m0_53321320?type=blog)的早期版本，我对其进行了精心的完善和扩展。  
+
 
 > [!TIP]  
 > 演示站点：https://crain.kiss1314.top  

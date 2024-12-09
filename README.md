@@ -1,10 +1,10 @@
-<div style="text-align: center;">
+<div align= "center">
   <img src="https://ybkjzj.com:5555/d/webImage/20241209130652.png" alt="demo" style="width: 80%; height: auto;">
 </div>  
 
 # Cyber Hand-drawn Letter
 
-<div style="text-align: right;">
+<div align="right">
   <a title="en" href="README.md"><img src="https://img.shields.io/badge/-English-545759?style=for-the-badge" alt="english"></a>
   <a title="zh" href="README_zh.md"><img src="https://img.shields.io/badge/-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-A31F34?style=for-the-badge" alt="简体中文"></a>
 </div>
@@ -13,6 +13,7 @@
 > ———— An anonymous senior
 
 This project is based on an early version by [@王子周棋洛](https://blog.csdn.net/m0_53321320?type=blog), which I have meticulously improved and expanded.
+
 
 > [!TIP]  
 > Demo Site: https://crain.kiss1314.top
