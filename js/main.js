@@ -1,3 +1,6 @@
+// Copyright © 2024 LeavesWebber
+// SPDX-License-Identifier: MPL-2.0
+// Feel free to contact LeavesWebber@outlook.com
 function hideLoading() {
     document.querySelector('.loading').style.display = 'none';
     document.body.classList.add('loaded');
