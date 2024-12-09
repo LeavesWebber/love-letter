@@ -1,4 +1,4 @@
-<img align="center" src="https://ybkjzj.com:5555/d/webImage/20241209130652.png"  alt="Redefine">
+<img align="center" src="https://ybkjzj.com:5555/d/webImage/20241209130652.png" alt="demo" style="width: 80%; height: auto;">
 
 # 赛博手绘信
 
@@ -12,8 +12,8 @@
 
 该项目源自[@王子周棋洛](https://blog.csdn.net/m0_53321320?type=blog)的早期版本，我对其进行了精心的完善和扩展。  
 
-> [!TIP 演示站点]  
-> 可见：https://crain.kiss1314.top  
+> [!TIP]  
+> 演示站点：https://crain.kiss1314.top  
 
 ## 项目简介
 这个项目用了十分简单易懂的几行`css`、`js`实现了一个可交互的赛博手绘信封。  
