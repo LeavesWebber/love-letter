@@ -6,7 +6,7 @@
 
 <div style="text-align: right;">
   <a title="en" href="README.md"><img src="https://img.shields.io/badge/-English-545759?style=for-the-badge" alt="english"></a>
-  <img src="https://img.shields.io/badge/-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-A31F34?style=for-the-badge" alt="简体中文">
+  <a title="zh" href="README_zh.md"><img src="https://img.shields.io/badge/-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-A31F34?style=for-the-badge" alt="简体中文">
 </div>
 
 > 无论你做程序员有多牛，有多精通各种代码，能解决各种问题，最后还是会想着去用代码去表白.  

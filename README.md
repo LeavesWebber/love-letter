@@ -6,7 +6,7 @@
 
 <div style="text-align: right;">
   <a title="en" href="README.md"><img src="https://img.shields.io/badge/-English-545759?style=for-the-badge" alt="english"></a>
-  <img src="https://img.shields.io/badge/-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-A31F34?style=for-the-badge" alt="简体中文">
+  <a title="zh" href="README_zh.md"><img src="https://img.shields.io/badge/-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-A31F34?style=for-the-badge" alt="简体中文"></a>
 </div>
 
 > No matter how awesome you are as a programmer, how skilled you are with various codes, and how you can solve all kinds of problems, in the end, you will still want to use code to confess.  
