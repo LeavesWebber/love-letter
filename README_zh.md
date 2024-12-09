@@ -1,8 +1,10 @@
-<img align="center" src="https://ybkjzj.com:5555/d/webImage/20241209130652.png" alt="demo" style="width: 80%; height: auto;">
+<div style="text-align: center;">
+  <img src="https://ybkjzj.com:5555/d/webImage/20241209130652.png" alt="demo" style="width: 80%; height: auto;">
+</div>  
 
 # 赛博手绘信
 
-<div align="right">
+<div style="text-align: right;">
   <a title="en" href="README.md"><img src="https://img.shields.io/badge/-English-545759?style=for-the-badge" alt="english"></a>
   <img src="https://img.shields.io/badge/-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-A31F34?style=for-the-badge" alt="简体中文">
 </div>
