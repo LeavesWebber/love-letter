@@ -25,7 +25,11 @@
 
 信封的徽章使用了@zhangyu1818 的开源项目 [appicon-forge](https://github.com/zhangyu1818/appicon-forge) 制作，闭合的时候效果如下  
 
-![envelope](https://ybkjzj.com:5555/d/webImage/20241209135519.png)
+<div align= "center">
+  <img src="https://ybkjzj.com:5555/d/webImage/20241209135519.png" alt="demo" style="width: 80%; height: auto;">
+</div>  
+
+
 ## 更多创意   
 ``` js
 if (你的女神不懂怎么打开URL || 你没有一个漂亮的域名) {
