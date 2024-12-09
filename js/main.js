@@ -80,7 +80,7 @@ window.addEventListener('load', function() {
     });
 });
 
-// 获取闭合信封的图片节点
+// 获取��合信封的图片节点
 let letter = document.querySelector(".letter");
 
 let span = document.querySelector("span");
@@ -118,10 +118,20 @@ emblem.addEventListener("click", function () {
             }, 800);
             // 800毫秒后切换信封为第三张
             setTimeout(function () {
-                // 播放拆信封的音效
+                // 先让当前图片淡出
+                letter.style.opacity = '0';
+                
+                setTimeout(() => {
+                    // 在不可见状态下切换图片和位置
+                    letter.src = "./images/content.png";
+                    // 短暂延迟后重新显示
+                    setTimeout(() => {
+                        letter.style.opacity = '1';
+                    }, 50);
+                }, 150);  // 等待淡出完成
+                
+                // 播放音效和背景音乐
                 clickAudio.play();
-                letter.src = "./images/content.png";
-                // 让人感觉温馨的背景音乐！
                 bgMusic.play();
             }, 1900);
             // 1900毫秒后切换为信件内容

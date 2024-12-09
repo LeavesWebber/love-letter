@@ -46,12 +46,13 @@ body.loaded {
 
 .con .letter {
     position: absolute;
-/*    position: relative;*/
-/*    transform: translateY(30%);*/
     display: block;
     width: 100%;
     height: auto;
+    opacity: 1;
+    transition: opacity 0.15s ease;
 }
+
 /* 为展开的信添加位置修正 */
 .con .letter[src*="content.png"] {
     transform: translateY(-42%);  /* 具体数值需要根据实际图片调整 */

@@ -27,7 +27,7 @@ The project has taken mobile responsiveness into account, so it features a flexi
 The badge on the envelope was made using [appicon-forge](https://github.com/zhangyu1818/appicon-forge), an open-source project by @zhangyu1818. The closure effect is as follows:
 
 <div align= "center">
-  <img src="https://ybkjzj.com:5555/d/webImage/20241209135519.png" alt="demo" style="width: 80%; height: auto;">
+  <img src="https://ybkjzj.com:5555/d/webImage/20241209144402.png" alt="demo" style="width: 50%; height: auto;">
 </div>  
 
 ## More Ideas
