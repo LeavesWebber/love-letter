@@ -1,0 +1,163 @@
+@font-face {
+    font-family: "阿里妈妈刀隶体 Regular";font-weight: 400;src: url("//at.alicdn.com/wf/webfont/TqBNLPwEuMxG/iZJ8KCG8XfEO.woff2") format("woff2"),
+url("//at.alicdn.com/wf/webfont/TqBNLPwEuMxG/ayOaQT1Lv14B.woff") format("woff");
+    font-display: swap;
+}
+/* 清除默认样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/*html{
+    background-color: antiquewhite;
+}*/
+/* 给body相对定位，让con以body为标准进行定位 */
+body {
+    position: relative;
+    /* 设置最小高度为一整个视口的高度 */
+    min-height: 100vh;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+body.loaded {
+    opacity: 1;
+}
+
+.con {
+    position: absolute;
+    width: min(60vw, 550px);
+    /*顶部对齐到父容器水平中线*/
+    top: 50%;
+    /*左边界对齐到父容器垂直中线*/
+    left: 50%;
+    /*相较于自身的中心，向左平移自身宽度的一半，向上平移自身高度的一半*/
+    transform: translate(-50%,-50%);
+    display: flex;
+    justify-content: center;
+/*    align-items: center;*/
+    /* 添加过渡效果 */
+    transition: transform 0.3s ease;
+}
+
+.con .letter {
+    position: absolute;
+/*    position: relative;*/
+/*    transform: translateY(30%);*/
+    display: block;
+    width: 100%;
+    height: auto;
+}
+/* 为展开的信添加位置修正 */
+.con .letter[src*="content.png"] {
+    transform: translateY(-42%);  /* 具体数值需要根据实际图片调整 */
+}
+
+.con .emblem {
+    position: absolute;
+    /* 将transform移到base-transform自定义属性中 */
+    --base-transform: translate(10%, 180%);
+    transform: var(--base-transform);
+    width: 15%;
+    height: auto;
+    cursor: pointer;
+    z-index: 2;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* 当鼠标悬停在 emblem 上时，让整个 con 有动画效果 */
+.con .emblem:hover ~ .letter,
+.con:has(.emblem:hover) {
+    transform: translateX(-50%) translateY(-10px);
+}
+
+/* 保持 emblem 的悬停效果 */
+.con .emblem:hover {
+    transform: var(--base-transform) scale(1.1);
+}
+
+.con span {
+    position: absolute;
+/*    left: 50%;
+    top: 70%;!*改变这个值，元素没有产生任何位置变化*!*/
+    transform: translate(-85%, 140%);
+    /* 使用 em 单位，相对于父容器的字体大小 */
+    font-size: calc(min(60vw, 550px) * 0.03); /* 约等于在570px宽度时为14px */
+    font-family: "阿里妈妈刀隶体 Regular", sans-serif;
+    z-index: 2;
+    cursor: default;
+    white-space: nowrap;
+    /* 添加以下属性确保文本对齐 */
+    display: flex;
+    align-items: center;
+    gap: calc(min(60vw, 570px) * 0.007); /* 间距也相应调整 */
+}
+
+/*
+!* 为了确保文字不会太小或太大，可以添加 clamp *!
+@supports (font-size: clamp(1px, 1px, 1px)) {
+    .con span {
+        font-size: clamp(12px, calc(min(60vw, 570px) * 0.025), 14px);
+    }
+}
+*/
+
+.con span span {
+    position: static;
+    transform: none;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: inherit;
+}
+
+/* 清除audio可能的占位问题 */
+audio {
+    width: 0;
+    height: 0;
+}
+
+/* 兼容移动设备 */
+/*@media screen and (max-width: 540px) {
+    .con {
+        width: 95%;
+    }
+
+    .con .emblem {
+        !* 保持百分比位置不变，只调整大小 *!
+        width: 8%;
+    }
+
+    .con span {
+        font-size: 12px;
+    }
+}*/
+
+/* 添加加载动画样式 */
+.loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    color: #666;
+}
+
+/* 添加摆动动画关键帧 */
+@keyframes swing {
+    0% { transform: var(--base-transform) rotate(0deg); }
+    25% { transform: var(--base-transform) rotate(-10deg); }
+    75% { transform: var(--base-transform) rotate(10deg); }
+    100% { transform: var(--base-transform) rotate(0deg); }
+}
+
+/* 添加淡出动画关键帧 */
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+@keyframes fade-in-down {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
