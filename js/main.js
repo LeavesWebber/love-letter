@@ -2,21 +2,25 @@
 // SPDX-License-Identifier: MPL-2.0
 // Feel free to contact LeavesWebber@outlook.com
 
+
+// 设置你们纪念日的起始日期
+const startDate = new Date('2022-11-02');
+
+//确保加载好之前都不要显示出东西
 function hideLoading() {
     document.querySelector('.loading').style.display = 'none';
     document.body.classList.add('loaded');
 }
-// 添加起始日期变量（在文件开头附近添加）
-const startDate = new Date('2022-11-02'); // 设置你的起始日期
 
-// 计算天数的函数
+
+// 计算天数的函数，以及考虑了闰年等问题
 function getDaysSince(startDate) {
     const today = new Date();
     const diffTime = Math.abs(today - startDate);
     return Math.floor(diffTime / (1000 * 60 * 60 * 24));
 }
 
-// 在 window.addEventListener('load', ...) 之前添加更新天数的代码
+// 给天数加一个彩色效果
 function updateDaysCount() {
     const days = getDaysSince(startDate);
     const span = document.querySelector('span');
@@ -39,7 +43,7 @@ function updateDaysCount() {
 
 // 等待所有资源加载完成
 window.addEventListener('load', function() {
-    updateDaysCount(); // 添加这一行
+    updateDaysCount();
     // 预加载所有图片
     const imagesToLoad = [
         './images/1.png',
@@ -81,23 +85,18 @@ window.addEventListener('load', function() {
     });
 });
 
-
+// 从 DOM 中获取元素
 let letter = document.querySelector(".letter");
-
 let span = document.querySelector("span");
-
-// 获取开信音效
 let clickAudio = document.querySelector(".clickAudio");
-//获取扭动音效
 let screwAudio = document.querySelector(".screwAudio");
-// 获取背景音乐
 let bgMusic = document.querySelector(".bgMusic");
-// 获取徽章
 let emblem = document.querySelector(".emblem");
 
+// 简单标记一下信的开合状态，后面要用
 let isOpen =false;
 
-
+// 这个函数后面交叉淡变动画要用到
 function createNewImage(src) {
     const img = letter.cloneNode(true); // 深度克隆现有的图片元素，保留事件监听器
     img.src = src;
@@ -108,7 +107,7 @@ function createNewImage(src) {
     return img;
 }
 
-// 添加点击事件
+// 开信的动画逻辑
 emblem.addEventListener("click", function () {
     screwAudio.play();
     emblem.style.animation = "swing 0.5s ease-in-out";
@@ -123,11 +122,12 @@ emblem.addEventListener("click", function () {
             
             // 执行交叉淡变动画
             function crossFade(oldImg, newImgSrc) {
+                // setTimeout 是个异步函数，我们需要用 Promise 函数来解决这个序列问题
                 return new Promise((resolve) => {
                     const newImg = createNewImage(newImgSrc);
                     oldImg.parentNode.appendChild(newImg);
                     
-                    // 根据图片名称调整位置
+                    // 最后一张图的信封位置特殊，需要调整
                     if (newImgSrc.includes('content.png')) {
                         newImg.style.transform = 'translateY(-42%)'; // content.png 的特定位移
                     } else {
@@ -184,9 +184,10 @@ emblem.addEventListener("click", function () {
     }, 500);
 });
 
-const con = document.querySelector(".con"); // 获取 .con 元素
+// 收信过程我们要监听的是 con 的点击事件，因为 letter 是动态生成的咱们监听不到
+const con = document.querySelector(".con");
 
-// 修改为监听 con 的点击事件
+// 收信逻辑
 con.addEventListener("click", function () {
     if (isOpen) {
         clickAudio.play();
@@ -205,8 +206,8 @@ con.addEventListener("click", function () {
                 }
 
                 // 设置更快的过渡时间
-                oldImg.style.transition = 'opacity 0.05s ease-in-out';
-                newImg.style.transition = 'opacity 0.05s ease-in-out';
+                oldImg.style.transition = 'opacity 0.1s ease-in-out';
+                newImg.style.transition = 'opacity 0.1s ease-in-out';
                 
                 newImg.offsetHeight;
                 
@@ -216,7 +217,7 @@ con.addEventListener("click", function () {
                 setTimeout(() => {
                     oldImg.remove();
                     resolve(newImg);
-                }, 50);
+                }, 100);
             });
         }
 
@@ -228,6 +229,7 @@ con.addEventListener("click", function () {
                 });
             })
             .then(img3 => quickCrossFade(img3, './images/1.png'))
+            /*直接切换到第一张图，收信会显得更干净利落一点，如果想慢慢收则打开*/
 /*            .then(img2 => {
                 return new Promise(resolve => {
                     setTimeout(() => resolve(img2), 100);
