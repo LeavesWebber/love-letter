@@ -87,7 +87,7 @@ body.loaded {
     position: absolute;
 /*    left: 50%;
     top: 70%;!*改变这个值，元素没有产生任何位置变化*!*/
-    transform: translate(-85%, 140%);
+    transform: translate(-85%, 120%);
     /* 使用 em 单位，相对于父容器的字体大小 */
     font-size: calc(min(60vw, 550px) * 0.03); /* 约等于在570px宽度时为14px */
     font-family: "阿里妈妈刀隶体 Regular", sans-serif;
