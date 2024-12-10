@@ -80,7 +80,7 @@ window.addEventListener('load', function() {
     });
 });
 
-// 获取��合信封的图片节点
+
 let letter = document.querySelector(".letter");
 
 let span = document.querySelector("span");
@@ -96,73 +96,155 @@ let emblem = document.querySelector(".emblem");
 
 let isOpen =false;
 
+
+function createNewImage(src) {
+    const img = letter.cloneNode(true); // 深度克隆现有的图片元素，保留事件监听器
+    img.src = src;
+    img.style.opacity = '0';
+    img.style.position = 'absolute'; // 确保位置样式被保留
+    img.style.width = '100%'; // 保留宽度样式
+    img.style.height = 'auto'; // 保留高度样式
+    return img;
+}
+
 // 添加点击事件
 emblem.addEventListener("click", function () {
     screwAudio.play();
-    // 添加摆动动画
     emblem.style.animation = "swing 0.5s ease-in-out";
-    // 动画结束后添加淡出效果并处理后续事件
+    
     setTimeout(function () {
         emblem.style.animation = "fadeOut 0.3s ease-in-out forwards";
         span.style.animation = "fadeOut 0.3s ease-in-out forwards";
-        // 等待淡出动画完成后再隐藏元素并执行其他操作
+        
         setTimeout(function () {
             emblem.style.display = "none";
             span.style.display = "none";
-            setTimeout(function () {
-                letter.src = "./images/2.png";
-            }, 200);
-            // 200毫秒后切换信封为第二张
-            setTimeout(function () {
-                letter.src = "./images/3.png";
-            }, 800);
-            // 800毫秒后切换信封为第三张
-            setTimeout(function () {
-                // 先让当前图片淡出
-                letter.style.opacity = '0';
-                
-                setTimeout(() => {
-                    // 在不可见状态下切换图片和位置
-                    letter.src = "./images/content.png";
-                    // 短暂延迟后重新显示
+            
+            // 执行交叉淡变动画
+            function crossFade(oldImg, newImgSrc) {
+                return new Promise((resolve) => {
+                    const newImg = createNewImage(newImgSrc);
+                    oldImg.parentNode.appendChild(newImg);
+                    
+                    // 根据图片名称调整位置
+                    if (newImgSrc.includes('content.png')) {
+                        newImg.style.transform = 'translateY(-42%)'; // content.png 的特定位移
+                    } else {
+                        newImg.style.transform = 'none'; // 其他图片的默认位移
+                    }
+                    
+                    // 设置初始状态
+                    oldImg.style.transition = 'opacity 0.5s ease-in-out';
+                    newImg.style.transition = 'opacity 0.5s ease-in-out';
+                    
+                    // 强制重排以确保过渡效果生效
+                    newImg.offsetHeight;
+                    
+                    // 执行交叉淡变
+                    oldImg.style.opacity = '0';
+                    newImg.style.opacity = '1';
+                    
                     setTimeout(() => {
-                        letter.style.opacity = '1';
-                    }, 50);
-                }, 150);  // 等待淡出完成
-                
-                // 播放音效和背景音乐
-                clickAudio.play();
-                bgMusic.play();
-            }, 1900);
-            // 1900毫秒后切换为信件内容
-            setTimeout(function () {
-                letter.style.cursor = "pointer"
-            }, 2000);
-        }, 300); // 等待淡出动画完成
-    }, 500); // 等待摆动动画完成
-    isOpen = true;
+                        oldImg.remove();
+                        resolve(newImg);
+                    }, 500);
+                });
+            }
+
+            // 按顺序执行动画序列
+            const originalImg = letter;
+            crossFade(originalImg, './images/2.png')
+                .then(img2 => {
+                    return new Promise(resolve => {
+                        setTimeout(() => resolve(img2), 300); // 等待0.3秒
+                    });
+                })
+                .then(img2 => crossFade(img2, './images/3.png'))
+                .then(img3 => {
+                    return new Promise(resolve => {
+                        setTimeout(() => resolve(img3), 300); // 等待0.3秒
+                    });
+                })
+                .then(img3 => {
+                    // 在开始最后一次渐变之前播放音效
+                    clickAudio.play();
+                    bgMusic.play();
+                    return crossFade(img3, './images/content.png');
+                })
+                .then(finalImg => {
+                    // 设置最终图片的样式
+                    finalImg.style.cursor = 'pointer';
+                    letter = finalImg; // 更新全局letter引用
+                    
+                    isOpen = true;
+                });
+        }, 300);
+    }, 500);
 });
-letter.addEventListener("click",function () {
-    if(isOpen){
-        setTimeout(function () {
-            clickAudio.play();
-            letter.src = "./images/3.png";
-        }, 200);
-        setTimeout(function () {
-            letter.src = "./images/2.png";
-        }, 200);    
-        setTimeout(function () {
-            letter.src = "./images/1.png";
-        }, 200);
-        setTimeout(function (){
-            // 收信后，徽章和日期重现
-            emblem.style.animation = "fade-in-down 0.3s ease-in-out forwards";
-            span.style.animation = "none"
-            //span.style.animation = "fade-in-down 0.3s ease-in-out forwards";
-            emblem.style.display = "flex";
-            span.style.display = "flex";
-        },500)
-        letter.style.cursor = "default"
-        isOpen=false;
+
+const con = document.querySelector(".con"); // 获取 .con 元素
+
+// 修改为监听 con 的点击事件
+con.addEventListener("click", function () {
+    if (isOpen) {
+        clickAudio.play();
+        
+        // 使用更快的渐变动画进行收信
+        function quickCrossFade(oldImg, newImgSrc) {
+            return new Promise((resolve) => {
+                const newImg = createNewImage(newImgSrc);
+                oldImg.parentNode.appendChild(newImg);
+
+                // 根据图片名称调整位置
+                if (newImgSrc.includes('content.png')) {
+                    newImg.style.transform = 'translateY(-42%)'; // content.png 的特定位移
+                } else {
+                    newImg.style.transform = 'none'; // 其他图片的默认位移
+                }
+
+                // 设置更快的过渡时间
+                oldImg.style.transition = 'opacity 0.05s ease-in-out';
+                newImg.style.transition = 'opacity 0.05s ease-in-out';
+                
+                newImg.offsetHeight;
+                
+                oldImg.style.opacity = '0';
+                newImg.style.opacity = '1';
+                //设置收信过程中每一张图片停留时间
+                setTimeout(() => {
+                    oldImg.remove();
+                    resolve(newImg);
+                }, 50);
+            });
+        }
+
+        const currentImg = letter;
+        quickCrossFade(currentImg, './images/3.png')
+            .then(img3 => {
+                return new Promise(resolve => {
+                    setTimeout(() => resolve(img3), 100);
+                });
+            })
+            .then(img3 => quickCrossFade(img3, './images/1.png'))
+/*            .then(img2 => {
+                return new Promise(resolve => {
+                    setTimeout(() => resolve(img2), 100);
+                });
+            })
+            .then(img2 => quickCrossFade(img2, './images/1.png'))*/
+            .then(finalImg => {
+                finalImg.style.cursor = 'default';
+                letter = finalImg;
+                
+                // 收信后，徽章和日期重现
+                setTimeout(() => {
+                    emblem.style.animation = "fade-in-down 0.3s ease-in-out forwards";
+                    span.style.animation = "none";
+                    emblem.style.display = "flex";
+                    span.style.display = "flex";
+                }, 200);
+                
+                isOpen = false;
+            });
     }
-})
+});

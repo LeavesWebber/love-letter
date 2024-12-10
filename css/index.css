@@ -6,15 +6,18 @@
 url("//at.alicdn.com/wf/webfont/TqBNLPwEuMxG/ayOaQT1Lv14B.woff") format("woff");
     font-display: swap;
 }
+
+/*html{
+    background-color: antiquewhite;
+}*/
+
 /* 清除默认样式 */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-/*html{
-    background-color: antiquewhite;
-}*/
+
 /* 给body相对定位，让con以body为标准进行定位 */
 body {
     position: relative;
@@ -49,8 +52,7 @@ body.loaded {
     display: block;
     width: 100%;
     height: auto;
-    opacity: 1;
-    transition: opacity 0.15s ease;
+    transition: opacity 0.3s ease-in-out;
 }
 
 /* 为展开的信添加位置修正 */
