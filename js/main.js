@@ -1,6 +1,7 @@
 // Copyright © 2024 LeavesWebber
 // SPDX-License-Identifier: MPL-2.0
 // Feel free to contact LeavesWebber@outlook.com
+
 function hideLoading() {
     document.querySelector('.loading').style.display = 'none';
     document.body.classList.add('loaded');
@@ -169,6 +170,7 @@ emblem.addEventListener("click", function () {
                     // 在开始最后一次渐变之前播放音效
                     clickAudio.play();
                     bgMusic.play();
+                    triggerConfetti(); // 触发五彩纸屑效果
                     return crossFade(img3, './images/content.png');
                 })
                 .then(finalImg => {
@@ -248,3 +250,16 @@ con.addEventListener("click", function () {
             });
     }
 });
+
+// 在开信过程中，图片切换到 content 的瞬间触发五彩纸屑效果
+function triggerConfetti() {
+    confetti({
+        particleCount: 400,
+        spread: 350,
+        origin: { y: 0.40 },
+        zIndex: 0
+    });
+
+    // 切换背景图像
+    //document.body.style.backgroundImage = "url('./images/bgi.png')";
+}

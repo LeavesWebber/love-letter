@@ -24,7 +24,9 @@ body {
     /* 设置最小高度为一整个视口的高度 */
     min-height: 100vh;
     opacity: 0;
-    transition: opacity 0.5s;
+    transition: opacity 3s,ease-in-out;
+    background-size: cover;
+    background-position: center;
 }
 
 body.loaded {
