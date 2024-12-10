@@ -13,7 +13,7 @@ function hideLoading() {
 }
 
 
-// 计算天数的函数，以及考虑了闰年等问题
+// 计算天数的函数，已经考虑了闰年等问题
 function getDaysSince(startDate) {
     const today = new Date();
     const diffTime = Math.abs(today - startDate);
@@ -60,9 +60,22 @@ const imageCache = {
     }
 };
 
-// 等待所有资源加载完成
+// 在 window.addEventListener('load', function() { 之前添加一个超时函数
+function setupLoadingTimeout() {
+    setTimeout(() => {
+        if (!document.body.classList.contains('loaded')) {
+            console.log('加载超时，强制显示页面');
+            hideLoading();
+        }
+    }, 10000); // 10秒超时
+}
+
+// 修改 window.addEventListener('load' 部分
 window.addEventListener('load', function() {
     updateDaysCount();
+    // 启动超时计时器
+    setupLoadingTimeout();
+    
     // 预加载所有图片
     const imagesToLoad = [
         './images/1.png',
