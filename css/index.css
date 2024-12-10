@@ -21,21 +21,14 @@ url("//at.alicdn.com/wf/webfont/TqBNLPwEuMxG/ayOaQT1Lv14B.woff") format("woff");
 /* 给body相对定位，让con以body为标准进行定位 */
 body {
     position: relative;
-    /* 设置最小高度为一整个视口的高度 */
     min-height: 100vh;
-    opacity: 0;
-    transition: opacity 3s,ease-in-out;
     background-size: cover;
     background-position: center;
 }
 
-body.loaded {
-    opacity: 1;
-}
-
 .con {
     position: absolute;
-    width: min(60vw, 550px);
+    width: min(95vw, 550px);
     /*顶部对齐到父容器水平中线*/
     top: 50%;
     /*左边界对齐到父容器垂直中线*/
@@ -45,8 +38,14 @@ body.loaded {
     display: flex;
     justify-content: center;
 /*    align-items: center;*/
+    /* 添加初始透明度 */
+    opacity: 0;
     /* 添加过渡效果 */
-    transition: transform 0.3s ease;
+    transition: opacity 3s ease-in-out,transform 0.3s ease;
+}
+
+body.loaded .con {
+    opacity: 1;
 }
 
 .con .letter {
@@ -91,7 +90,7 @@ body.loaded {
     top: 70%;!*改变这个值，元素没有产生任何位置变化*!*/
     transform: translate(-85%, 120%);
     /* 使用 em 单位，相对于父容器的字体大小 */
-    font-size: calc(min(60vw, 550px) * 0.03); /* 约等于在570px宽度时为14px */
+    font-size: calc(min(95vw, 550px) * 0.03); /* 约等于在570px宽度时为14px */
     font-family: "阿里妈妈刀隶体 Regular", sans-serif;
     z-index: 2;
     cursor: default;
@@ -147,8 +146,18 @@ audio {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 20px;
+    font-size: 15px;
+    font-family: "阿里妈妈刀隶体 Regular", sans-serif;
     color: #666;
+    z-index: 9999;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* 添加脉冲动画效果 */
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
 }
 
 /* 添加摆动动画关键帧 */
@@ -167,5 +176,10 @@ audio {
 @keyframes fade-in-down {
     from { opacity: 0; }
     to { opacity: 1; }
+}
+
+/* body 加载完成后隐藏加载提示 */
+body.loaded .loading {
+    display: none;
 }
 

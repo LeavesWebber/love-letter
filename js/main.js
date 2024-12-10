@@ -41,6 +41,25 @@ function updateDaysCount() {
     span.innerHTML = `Friends for ${colorfulNumbers} days`;
 }
 
+// 在全局作用域添加一个对象来存储预加载的图片
+const imageCache = {
+    images: {},
+    // 预加载并缓存图片
+    preloadImages: function(srcs) {
+        return Promise.all(srcs.map(src => {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => {
+                    this.images[src] = img;
+                    resolve(img);
+                };
+                img.onerror = reject;
+                img.src = src;
+            });
+        }));
+    }
+};
+
 // 等待所有资源加载完成
 window.addEventListener('load', function() {
     updateDaysCount();
@@ -53,36 +72,44 @@ window.addEventListener('load', function() {
         './images/emblem.png'
     ];
 
-    let loadedImages = 0;
-
-    function imageLoaded() {
-        loadedImages++;
-        if (loadedImages === imagesToLoad.length) {
-            // 所有图片加载完成
-            hideLoading();
-        }
-    }
-
-    imagesToLoad.forEach(src => {
-        const img = new Image();
-        img.onload = imageLoaded;
-        img.src = src;
-    });
-
-    // 预加载音频
-    Promise.all([
+    // 创建一个Promise数组，包含所有需要加载的资源
+    const loadPromises = [
+        // 图片加载Promise
+        imageCache.preloadImages(imagesToLoad),
+        // 音频加载Promise
         new Promise(resolve => {
-            clickAudio.addEventListener('canplaythrough', resolve, {once: true});
+            if (clickAudio.readyState >= 3) {
+                resolve();
+            } else {
+                clickAudio.addEventListener('canplaythrough', resolve, {once: true});
+            }
         }),
         new Promise(resolve => {
-            bgMusic.addEventListener('canplaythrough', resolve, {once: true});
+            if (screwAudio.readyState >= 3) {
+                resolve();
+            } else {
+                screwAudio.addEventListener('canplaythrough', resolve, {once: true});
+            }
+        }),
+        new Promise(resolve => {
+            if (bgMusic.readyState >= 3) {
+                resolve();
+            } else {
+                bgMusic.addEventListener('canplaythrough', resolve, {once: true});
+            }
         })
-    ]).then(() => {
-        // 音频加载完成
-        if (loadedImages === imagesToLoad.length) {
+    ];
+
+    // 等待所有资源加载完成
+    Promise.all(loadPromises)
+        .then(() => {
             hideLoading();
-        }
-    });
+        })
+        .catch(error => {
+            console.error('资源加载失败:', error);
+            // 即使加载失败也隐藏加载画面，确保用户可以使用
+            hideLoading();
+        });
 });
 
 // 从 DOM 中获取元素
@@ -93,17 +120,30 @@ let screwAudio = document.querySelector(".screwAudio");
 let bgMusic = document.querySelector(".bgMusic");
 let emblem = document.querySelector(".emblem");
 
+// 设置预加载
+clickAudio.preload = "auto";
+screwAudio.preload = "auto";
+bgMusic.preload = "auto";
+
 // 简单标记一下信的开合状态，后面要用
 let isOpen =false;
 
 // 这个函数后面交叉淡变动画要用到
 function createNewImage(src) {
-    const img = letter.cloneNode(true); // 深度克隆现有的图片元素，保留事件监听器
-    img.src = src;
+    // 从缓存中获取图片对象
+    const cachedImg = imageCache.images[src];
+    if (!cachedImg) {
+        console.error('图片未在缓存中找到:', src);
+        return null;
+    }
+    
+    const img = document.createElement('img');
+    img.src = cachedImg.src;
+    img.className = 'letter';
     img.style.opacity = '0';
-    img.style.position = 'absolute'; // 确保位置样式被保留
-    img.style.width = '100%'; // 保留宽度样式
-    img.style.height = 'auto'; // 保留高度样式
+    img.style.position = 'absolute';
+    img.style.width = '100%';
+    img.style.height = 'auto';
     return img;
 }
 
@@ -134,7 +174,7 @@ emblem.addEventListener("click", function () {
                         newImg.style.transform = 'none'; // 其他图片的默认位移
                     }
                     
-                    // 设置初始状态
+
                     oldImg.style.transition = 'opacity 0.5s ease-in-out';
                     newImg.style.transition = 'opacity 0.5s ease-in-out';
                     

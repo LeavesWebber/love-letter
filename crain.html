@@ -15,7 +15,7 @@
 
 <body>
 <!-- 添加加载提示 -->
-<div class="loading">加载中...</div>
+<div class="loading">🎂哥们，惊喜就要来啦！🎂</div>
 
 <!--信，徽章，倒计时文字-->
 <div class="con">
@@ -25,10 +25,9 @@
 </div>
 
 <!--音效和背景音乐-->
-<audio src="audio/click.mp3" class="clickAudio"></audio>
-<audio src="audio/screw.MP3" class="screwAudio"></audio>
-<!--<audio src="audio/bgm.MP3" class="bgMusic"></audio>-->
-<audio src="audio/birthdayBGM.MP3" class="bgMusic"></audio>
+<audio class="bgMusic" preload="auto" src="audio/birthdayBGM.MP3"></audio>
+<audio class="clickAudio" preload="auto" src="audio/click.mp3"></audio>
+<audio class="screwAudio" preload="auto" src="audio/screw.MP3"></audio>
 
 <!--五彩纸屑特效用了canvas的包-->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
