@@ -206,8 +206,8 @@ con.addEventListener("click", function () {
                 }
 
                 // 设置更快的过渡时间
-                oldImg.style.transition = 'opacity 0.1s ease-in-out';
-                newImg.style.transition = 'opacity 0.1s ease-in-out';
+                oldImg.style.transition = 'opacity 0.2s ease-in-out';
+                newImg.style.transition = 'opacity 0.2s ease-in-out';
                 
                 newImg.offsetHeight;
                 
@@ -217,7 +217,7 @@ con.addEventListener("click", function () {
                 setTimeout(() => {
                     oldImg.remove();
                     resolve(newImg);
-                }, 100);
+                }, 200);
             });
         }
 
